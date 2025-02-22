@@ -128,7 +128,6 @@ const VisualSearch = () => {
                 {products.map((product, index) => (
                   <div key={index}>
                     <h3>{product.name}</h3>
-                    <img src={product.image} alt={product.name} />
                   </div>
                 ))}
               </div>
