@@ -4,7 +4,7 @@ import { StyleSheet, View } from 'react-native';
 export function NotFound() {
   return (
     <View style={styles.container}>
-      <Text>404</Text>
+      <Text>Error 404: This page doesn't exist</Text>
       <Button screen="HomeTabs">Go to Home</Button>
     </View>
   );
