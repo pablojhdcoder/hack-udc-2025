@@ -1,17 +1,13 @@
 {
   "expo": {
-    "name": "1hack-udc-2025",
-    "slug": "1hack-udc-2025",
+    "name": "25hack",
+    "slug": "25hack",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
+    "scheme": "25hack",
     "ios": {
       "supportsTablet": true
     },
@@ -23,6 +19,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-asset",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/splash-icon.png"
+        }
+      ],
+      "react-native-edge-to-edge"
+    ]
   }
 }

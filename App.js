@@ -1,5 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import AppNavigator from './navigation/navigation';
 
 const icon = require('./assets/icon.png');
 
@@ -11,7 +12,7 @@ export default function App() {
       {/*Local image*/}
       {/*<Image source={icon} style={{ width: 150, height: 500 }} />*/}
       <StatusBar style="auto" />
-      <Text>Buenas tardes, here is the app</Text>
+      <AppNavigator />
     </View>
   );
 }
