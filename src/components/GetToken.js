@@ -16,7 +16,6 @@ export async function getToken() {
     });
 
     if (response.status === 200) {
-        console.log(response.data.access_token)
       return response.data.id_token; // Adjust based on your API response structure
     } else {
       throw new Error('Failed to get token');

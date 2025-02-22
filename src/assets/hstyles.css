@@ -50,7 +50,10 @@ input[type="file"] {
 }
 
 button {
+    font-family: "BoldF";
     margin-top: 30px;
+    margin-right: 30px;
+    margin-left: 30px;
     padding: 10px 15px;
     border: none;
     background: #007BFF;
@@ -58,6 +61,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 20px; /* Añadir bordes redondeados */
+    flex: 1;
 }
 
 button:hover {

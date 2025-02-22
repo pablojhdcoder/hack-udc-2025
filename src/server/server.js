@@ -2,9 +2,12 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 const PORT = 5000;
+
+app.use(cors());
 
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
@@ -26,9 +29,9 @@ if (!fs.existsSync(dir)) {
 }
 
 // Endpoint to handle file uploads
-app.post('/upload', upload.array('files'), (req, res) => {
-  const fileUrls = req.files.map(file => `http://localhost:${PORT}/uploads/${file.filename}`);
-  res.status(200).json({ message: 'Files uploaded successfully!', fileUrls });
+app.post('/upload', upload.single('file'), (req, res) => {
+  const fileUrl = `http://localhost:${PORT}/uploads/${req.file.filename}`;
+  res.status(200).json({ message: 'File uploaded successfully!', fileUrl });
 });
 
 // Serve static files from the uploads directory
