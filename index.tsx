@@ -1,11 +1,8 @@
-import './gesture-handler';
+import { getImages } from "../src/scraper.tsx";
 
-import '@expo/metro-runtime'; // Necessary for Fast Refresh on Web
-import { registerRootComponent } from 'expo';
+const url = "https://www.zara.com/es/es/camiseta-basica-slim-fit-p05584361.html?v1=416633319&v2=2443335"; // Cambia esta URL
 
-import { App } from './src/App';
-
-// registerRootComponent calls AppRegistry.registerComponent('main', () => App);
-// It also ensures that whether you load the app in Expo Go or in a native build,
-// the environment is set up appropriately
-registerRootComponent(App);
+getImages(url).then((images) => {
+  console.log("🔍 Imágenes encontradas:");
+  images.forEach((img, index) => console.log(`${index + 1}. ${img}`));
+});
