@@ -6,15 +6,14 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
-import bell from '../assets/bell.png';
-import newspaper from '../assets/newspaper.png';
+import search from './assets/search.png';
+import pic from './assets/pic.png';
 import { Home } from './screens/Home';
-import { Profile } from './screens/Profile';
+import { ProductSearch } from './screens/ProductSearch';
 import { Settings } from './screens/Settings';
 import { Updates } from './screens/Updates';
 import { NotFound } from './screens/NotFound';
 
-//Crea un navegador de pestañas inferior con dos pestañas
 const HomeTabs = createBottomTabNavigator({
   screens: {
     Home: {
@@ -23,7 +22,7 @@ const HomeTabs = createBottomTabNavigator({
         title: 'AI',
         tabBarIcon: ({ color, size }) => (
           <Image
-            source={newspaper}
+            source={pic}
             tintColor={color}
             style={{
               width: size,
@@ -33,12 +32,13 @@ const HomeTabs = createBottomTabNavigator({
         ),
       },
     },
-    Updates: {
-      screen: Updates,
+    ProductSearch: {
+      screen: ProductSearch,
       options: {
+        title: 'Search Product',
         tabBarIcon: ({ color, size }) => (
           <Image
-            source={bell}
+            source={search}
             tintColor={color}
             style={{
               width: size,
@@ -52,6 +52,13 @@ const HomeTabs = createBottomTabNavigator({
 });
 
 const RootStack = createNativeStackNavigator({
+  navigator: {
+    screenOptions:{
+      headerTitleStyle: {
+        fontFamily: 'BoldF',
+      },
+    },
+  },
   screens: {
     HomeTabs: {
       screen: HomeTabs,
@@ -60,16 +67,24 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     },
-    Profile: {
-      screen: Profile,
+    Home: {
+      screen: Home,
+      options: ({ navigation }) => ({
+        title: 'Home',
+        headerRight: () => (
+          <HeaderButton onPress={() => navigation.navigate('Settings')}>
+            <Text style={{ fontFamily: 'BoldF' }}>Settings</Text>
+          </HeaderButton>
+        ),
+      }),
+    },
+    ProductSearch: {
+      screen: ProductSearch,
+      options: {
+        title: 'Search'
+      },
       linking: {
-        path: ':user(@[a-zA-Z0-9-_]+)',
-        parse: {
-          user: (value) => value.replace(/^@/, ''),
-        },
-        stringify: {
-          user: (value) => `@${value}`,
-        },
+        path: 'ProductSearch',
       },
     },
     Settings: {
@@ -77,8 +92,8 @@ const RootStack = createNativeStackNavigator({
       options: ({ navigation }) => ({
         presentation: 'modal',
         headerRight: () => (
-          <HeaderButton onPress={navigation.goBack}>
-            <Text>Close</Text>
+          <HeaderButton onPress={() => navigation.goBack}>
+            <Text style={{ fontFamily: 'BoldF' }}>Back</Text>
           </HeaderButton>
         ),
       }),
