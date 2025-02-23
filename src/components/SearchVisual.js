@@ -5,50 +5,70 @@ import { getToken } from "./GetToken";
 const VisualSearch = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
-  const [files, setFiles] = useState([]);
-  const [previews, setPreviews] = useState([]);
+  const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [uploaded, setUploaded] = useState(false);
+  const [fileSelected, setFileSelected] = useState(false);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFileChange = (event) => {
-    const selectedFiles = Array.from(event.target.files);
-    setFiles(selectedFiles);
-    generatePreviews(selectedFiles);
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+    setFileSelected(true);
+  };
+
+  const handleCancel = () => {
+    setFile(null);
+    setUploaded(false);
+    setUploadedImageUrl(null);
+    setProducts([]);
+  };
+
+  const handleGoBack = () => {
+    setUploaded(false);
+    setFileSelected(false);
+    setProducts([]); // Clear the products
   };
 
   const handleDrop = (event) => {
     event.preventDefault();
-    const droppedFiles = Array.from(event.dataTransfer.files);
-    setFiles(droppedFiles);
-    generatePreviews(droppedFiles);
-  };
-
-  const generatePreviews = (fileList) => {
-    const newPreviews = fileList.map((file) => URL.createObjectURL(file));
-    setPreviews(newPreviews);
+    const droppedFile = event.dataTransfer?.files[0];
+    if (droppedFile) {
+      setFile(droppedFile);
+      setFileSelected(true);``
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setUploading(true);
+    setError(null);
+
+    const formData = new FormData();
+    formData.append("image", file);
+
     try {
-      const formData = new FormData();
-      files.forEach((file) => {
-        formData.append("file", file); // Make sure backend expects "file"
+      const response = await axios.post("https://api.imgbb.com/1/upload", formData, {
+        params: {
+          key: "83ba77030057ec144b6850fd5ad0583e", // Replace with your imgbb API key
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      // Upload files
-      const uploadResponse = await axios.post("http://localhost:5000/upload", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      if (uploadResponse.status === 200) {
-        const uploadedImageUrl = uploadResponse.data.imageUrl; // Adjust according to backend response
-        fetchProducts(uploadedImageUrl);
+      if (response.status === 200) {
+        const uploadedImageUrl = response.data.data.url;
+        setUploadedImageUrl(uploadedImageUrl);
+        setUploaded(true);
+        setLoading(true);
+        await fetchProducts(uploadedImageUrl);
       } else {
-        throw new Error("Failed to upload files.");
+        throw new Error("Failed to upload file.");
       }
     } catch (error) {
-      console.error("Error uploading files:", error);
+      console.error("Error uploading file:", error);
       setError("Upload failed. Check console.");
     } finally {
       setUploading(false);
@@ -59,7 +79,7 @@ const VisualSearch = () => {
     try {
       const token = await getToken();
       const response = await axios.get(
-        `https://api-sandbox.inditex.com/pubvsearch-sandbox/products?image=${imageUrl}`,
+        `https://cors-anywhere.herokuapp.com/https://api.inditex.com/pubvsearch/products?image=${imageUrl}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -72,6 +92,8 @@ const VisualSearch = () => {
     } catch (err) {
       console.error("Error fetching products:", err);
       setError("Failed to fetch products.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,42 +101,88 @@ const VisualSearch = () => {
     display: 'flex',
     justifyContent: 'center', // Center horizontally
     alignItems: 'center', // Center vertically
-    height: '100vh',
+    height: "90vh",
     margin: 0
   };
 
   return (
+    <div style={{ textAlign: "center" }}>
     <div style={bodyStyle}>
-      <div className="upload-container">
-        <form onSubmit={handleSubmit} id="uploadForm">
-          <label
-            htmlFor="fileInput"
-            className="drop-area"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDrop}
-          >
-            <div className="icon">+</div>
-            <p>Arrastra tus archivos aquí o haz clic para seleccionar</p>
-            <input type="file" id="fileInput" multiple onChange={handleFileChange} />
-          </label>
-          <button type="submit" disabled={uploading}>
-            {uploading ? 'Uploading...' : 'Subir Archivo'}
-          </button>
-        </form>
-        <div id="preview">
-          {previews.map((src, index) => (
-            <img key={index} src={src} alt="Preview" className="preview-image" />
-          ))}
-        </div>
-        <div id="products">
-          {products.map((product, index) => (
-            <div key={index}>
-              <h3>{product.name}</h3>
-              <img src={product.image} alt={product.name} />
-            </div>
-          ))}
-        </div>
+
+      <div className="container">
+      <h2>Visual Search</h2>
+        {!fileSelected && !uploaded && (
+          <div className="upload-container">
+            <form onSubmit={handleSubmit} id="uploadForm">
+              <label
+                htmlFor="fileInput"
+                className="drop-area"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={handleDrop}
+              >
+                <div className="icon">+</div>
+                <p>Arrastra tus archivos aquí o haz clic para seleccionar</p>
+                <input type="file" id="fileInput" accept="image/*" onChange={handleFileChange} />
+              </label>
+              <button type="submit" disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Upload file'}
+              </button>
+            </form>
+          </div>
+        )}
+        {fileSelected && !uploaded && (
+          <div className="upload-container">
+            <p>Archivo seleccionado: {file.name}</p>
+            <button onClick={handleCancel}>Cancelar</button>
+            <button onClick={handleSubmit} disabled={uploading}>
+              {uploading ? 'Uploading...' : 'Subir Archivo'}
+            </button>
+          </div>
+        )}
+        {uploaded && (
+          <div className="upload-container">
+            <p>File uploaded successfully!</p>
+            {loading ? (
+              <div className="loading">
+                Loading...
+              </div>
+            ) : (
+              <>
+                {products.length > 0 ? (
+                  <div id="products" className="products-container">
+                    {products.map((product, index) => {
+                    const price = product.price?.value?.current; // Get current price
+                    const originalPrice = product.price?.value?.original; // Get original price
+                    const currency = product.price?.currency; // Get currency
+
+                    return (
+                        <li key={index} style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
+                            <a href={product.link} target="_blank" rel="noopener noreferrer" style={{ fontWeight: "bold", color: "blue", textDecoration: "none" }}>
+                                {product.name || "No Name"},
+                            </a> -  
+                            {price ? ` ${price} ${currency}` : " No Price"}
+                            {originalPrice && originalPrice !== price ? (
+                                <span style={{ textDecoration: "line-through", marginLeft: "10px", color: "gray" }}>
+                                    {originalPrice} {currency}
+                                </span>
+                            ) : null}
+                        </li>
+                    );
+                })}
+                  </div>
+                ) : (
+                  <div className="no-products">
+                    No products similar
+                  </div>
+                )}
+              </>
+            )}
+            <button onClick={handleGoBack}>Go Back</button>
+          </div>
+        )}
       </div>
+    </div>
+
     </div>
   );
 };

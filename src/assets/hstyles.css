@@ -50,7 +50,10 @@ input[type="file"] {
 }
 
 button {
-    margin-top: 30px;
+    font-family: "BoldF";
+    margin-right: 30px;
+    margin-top: 10px;
+    margin-left: 30px;
     padding: 10px 15px;
     border: none;
     background: #007BFF;
@@ -58,6 +61,7 @@ button {
     font-size: 16px;
     cursor: pointer;
     border-radius: 20px; /* Añadir bordes redondeados */
+    flex: 1;
 }
 
 button:hover {
@@ -67,3 +71,10 @@ button:hover {
 #preview {
     margin-top: 15px;
 }
+
+.no-products {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+  }

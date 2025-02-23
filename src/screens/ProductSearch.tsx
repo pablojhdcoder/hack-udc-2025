@@ -1,5 +1,4 @@
 import { Text } from '@react-navigation/elements';
-import { StaticScreenProps } from '@react-navigation/native/lib/typescript/commonjs/src';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import QueryProduct from '../components/QueryProduct';
 

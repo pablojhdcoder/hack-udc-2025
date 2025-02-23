@@ -19,7 +19,8 @@ const HomeTabs = createBottomTabNavigator({
     Home: {
       screen: Home,
       options: {
-        title: 'AI',
+        title: '',
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <Image
             source={pic}
@@ -30,12 +31,14 @@ const HomeTabs = createBottomTabNavigator({
             }}
           />
         ),
+        headerTitleAlign: 'center',
       },
     },
     ProductSearch: {
       screen: ProductSearch,
       options: {
-        title: 'Search Product',
+        title: '',
+        headerShown: false,
         tabBarIcon: ({ color, size }) => (
           <Image
             source={search}
@@ -46,6 +49,7 @@ const HomeTabs = createBottomTabNavigator({
             }}
           />
         ),
+        headerTitleAlign: 'center',
       },
     },
   },
