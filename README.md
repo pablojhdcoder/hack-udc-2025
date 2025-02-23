@@ -4,10 +4,10 @@ Trabajo presentado para la propuesta de InditexTech en la HackUDC 2025.
 
 Introducción al trabajo
 
-En esta hackaton se nos propuso crear una aplicación web o móvil que implementase una interfaz de usuario utilizando las facilidades presentes en la API proporcionada por el equipo de InditexTech, la cual, nos proporcionaba los siguientes datos:
+En esta hackaton se nos propuso crear una aplicación web o móvil que implementase una interfaz de usuario utilizando las facilidades presentes en las API's proporcionadas por el equipo de InditexTech, las cuales nos proporcionaban las siguientes facilidades:
 
-1. Order Tracking: Get information about any order just by providing its ID.
+1. Seguimiento de pedidos: Obtiene información sobre cualquier pedido con solo proporcionar su ID.
 
-2. Product Search: Find the products you're looking for in any of our brands.
+2. Búsqueda de Productos: Encuentra los productos que buscas en cualquiera de nuestras marcas.
 
-3. Visual Search: Provide a URL to find products that are similar to any clothing items found in the image.
+3. Búsqueda visual: Proporciona una URL para encontrar productos similares a cualquier prenda que se encuentre en la imagen.
