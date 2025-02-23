@@ -1,65 +1,60 @@
-# Starter Template with React Navigation
+# 👕🛍️ RiquiRiClothing 👗👠
 
-This is a minimal starter template for React Native apps using Expo and React Navigation.
+Este repositorio contiene el código fuente y la documentación del proyecto desarrollado para la propuesta de InditexTech en la HackUDC 2025.
 
-It includes the following:
+## 📌 Introducción al trabajo
 
-- Example [Native Stack](https://reactnavigation.org/docs/native-stack-navigator) with a nested [Bottom Tab](https://reactnavigation.org/docs/bottom-tab-navigator)
-- Web support with [React Native for Web](https://necolas.github.io/react-native-web/)
-- TypeScript support and configured for React Navigation
-- Automatic deep link and URL handling configuration
-- Expo [Development Build](https://docs.expo.dev/develop/development-builds/introduction/) with [Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)
-- Edge-to-edge configured on Android with [`react-native-edge-to-edge`](https://www.npmjs.com/package/react-native-edge-to-edge)
+En esta hackaton se nos propuso crear una aplicación web o móvil que implementase una interfaz de usuario utilizando las facilidades presentes en las API's proporcionadas por el equipo de InditexTech, las cuales nos proporcionaban las siguientes facilidades:
 
-## Getting Started
+1️⃣ Seguimiento de pedidos 📦: Obtiene información sobre cualquier pedido con solo proporcionar su ID.
 
-1. Create a new project using this template:
+2️⃣ Búsqueda de Productos 🛒: Encuentra los productos que buscas en cualquiera de nuestras marcas.
 
-   ```sh
-   npx create-expo-app@latest --template react-navigation/template
-   ```
+3️⃣ Búsqueda visual 📸🔍: Proporciona una URL para encontrar productos similares a cualquier prenda que se encuentre en la imagen.
 
-2. Edit the `app.json` file to configure the `name`, `slug`, `scheme` and bundle identifiers (`ios.bundleIdentifier` and `android.bundleIdentifier`) for your app.
+En nuestro caso, hemos implementado las api's de búsqueda de productos y búsqueda visual en una página web simple con estas dos funcionalidades.
 
-3. Edit the `src/App.tsx` file to start working on your app.
+## 🚀 Características
 
-## Running the app
+✅ Interfaz intuitiva y fácil de usar.
 
-- Install the dependencies:
+✅ Integración con APIs de Inditex para obtener información en tiempo real.
 
-  ```sh
-  npm install
-  ```
+✅ Búsqueda avanzada por imagen y por palabras clave.
 
-- Start the development server:
+✅ Diseño responsive para su uso en diferentes dispositivos.
 
-  ```sh
-  npm start
-  ```
+## 🛠️ Tecnologías Utilizadas
+- React ⚛️
+- Javascript 🟨
+- Typescript 🔷
+- HTML 🏗️
+- CSS 🎨
 
-- Build and run iOS and Android development builds:
+## ⚙️ Instalación
 
-  ```sh
-  npm run ios
-  # or
-  npm run android
-  ```
+Para instalar y ejecutar el proyecto, sigue estos pasos:
 
-- In the terminal running the development server, press `i` to open the iOS simulator, `a` to open the Android device or emulator, or `w` to open the web browser.
+1️⃣ Clona el repositorio 🖥️
+````
+git clone https://github.com/pablojhdcoder/hack-udc-2025.git
+````
+2️⃣ Accede al directorio del proyecto 📂
+````
+cd hack-udc-2025
+````
+3️⃣ Instala las dependencias 📦
+````
+npm install
+````
+4️⃣ Ejecuta el proyecto 🚀
+````
+npm start
+````
 
-## Notes
+## 🛠️ Configuración del Proyecto
 
-This project uses a [development build](https://docs.expo.dev/develop/development-builds/introduction/) and cannot be run with [Expo Go](https://expo.dev/go). To run the app with Expo Go, edit the `package.json` file, remove the `expo-dev-client` package and `--dev-client` flag from the `start` script. However, Edge-to-edge won't work on Expo Go.
-
-We highly recommend using the development builds for normal development and testing.
-
-The `ios` and `android` folder are gitignored in the project by default as they are automatically generated during the build process ([Continuous Native Generation](https://docs.expo.dev/workflow/continuous-native-generation/)). This means that you should not edit these folders directly and use [config plugins](https://docs.expo.dev/config-plugins/) instead. However, if you need to edit these folders, you can remove them from the `.gitignore` file so that they are tracked by git.
-
-## Resources
-
-- [React Navigation documentation](https://reactnavigation.org/)
-- [Expo documentation](https://docs.expo.dev/)
-
----
-
-Demo assets are from [lucide.dev](https://lucide.dev/)
+Hemos utilizado el framework de React Navigation con una configuración estática.
+```
+npx create-expo-app@latest --template react-navigation/template
+```
