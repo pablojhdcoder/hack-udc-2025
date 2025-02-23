@@ -77,7 +77,7 @@ const QueryProduct = () => {
 
     return (
         <div style={{ textAlign: "center" }}>
-            <h2>Product Search</h2>
+            <h2>Search Product</h2>
             <input
                 type="text"
                 value={query}

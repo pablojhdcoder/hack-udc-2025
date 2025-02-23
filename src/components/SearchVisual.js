@@ -101,13 +101,16 @@ const VisualSearch = () => {
     display: 'flex',
     justifyContent: 'center', // Center horizontally
     alignItems: 'center', // Center vertically
-    height: "75vh",
+    height: "90vh",
     margin: 0
   };
 
   return (
+    <div style={{ textAlign: "center" }}>
     <div style={bodyStyle}>
+
       <div className="container">
+      <h2>Visual Search</h2>
         {!fileSelected && !uploaded && (
           <div className="upload-container">
             <form onSubmit={handleSubmit} id="uploadForm">
@@ -178,6 +181,8 @@ const VisualSearch = () => {
           </div>
         )}
       </div>
+    </div>
+
     </div>
   );
 };
