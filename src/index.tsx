@@ -19,7 +19,7 @@ const HomeTabs = createBottomTabNavigator({
     Home: {
       screen: Home,
       options: {
-        title: 'AI',
+        title: 'Visual Search',
         tabBarIcon: ({ color, size }) => (
           <Image
             source={pic}

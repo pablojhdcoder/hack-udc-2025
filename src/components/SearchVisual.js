@@ -16,7 +16,6 @@ const VisualSearch = () => {
     const selectedFile = event.target.files[0];
     setFile(selectedFile);
     setFileSelected(true);
-    console.log("File selected:", selectedFile);
   };
 
   const handleCancel = () => {
@@ -24,14 +23,12 @@ const VisualSearch = () => {
     setUploaded(false);
     setUploadedImageUrl(null);
     setProducts([]);
-    console.log("File selection canceled");
   };
 
   const handleGoBack = () => {
     setUploaded(false);
     setFileSelected(false);
     setProducts([]); // Clear the products
-    console.log("Go back to upload form");
   };
 
   const handleDrop = (event) => {
@@ -39,8 +36,7 @@ const VisualSearch = () => {
     const droppedFile = event.dataTransfer?.files[0];
     if (droppedFile) {
       setFile(droppedFile);
-      setFileSelected(true);
-      console.log("File dropped:", droppedFile);
+      setFileSelected(true);``
     }
   };
 
@@ -64,7 +60,6 @@ const VisualSearch = () => {
 
       if (response.status === 200) {
         const uploadedImageUrl = response.data.data.url;
-        console.log("File uploaded successfully:", uploadedImageUrl);
         setUploadedImageUrl(uploadedImageUrl);
         setUploaded(true);
         setLoading(true);
@@ -127,7 +122,7 @@ const VisualSearch = () => {
                 <input type="file" id="fileInput" accept="image/*" onChange={handleFileChange} />
               </label>
               <button type="submit" disabled={uploading}>
-                {uploading ? 'Uploading...' : 'Subir Archivo'}
+                {uploading ? 'Uploading...' : 'Upload file'}
               </button>
             </form>
           </div>
@@ -152,11 +147,25 @@ const VisualSearch = () => {
               <>
                 {products.length > 0 ? (
                   <div id="products" className="products-container">
-                    {products.map((product, index) => (
-                      <div key={index}>
-                        <h3>{product.name}</h3>
-                      </div>
-                    ))}
+                    {products.map((product, index) => {
+                    const price = product.price?.value?.current; // Get current price
+                    const originalPrice = product.price?.value?.original; // Get original price
+                    const currency = product.price?.currency; // Get currency
+
+                    return (
+                        <li key={index} style={{ padding: "10px", borderBottom: "1px solid #ddd" }}>
+                            <a href={product.link} target="_blank" rel="noopener noreferrer" style={{ fontWeight: "bold", color: "blue", textDecoration: "none" }}>
+                                {product.name || "No Name"},
+                            </a> -  
+                            {price ? ` ${price} ${currency}` : " No Price"}
+                            {originalPrice && originalPrice !== price ? (
+                                <span style={{ textDecoration: "line-through", marginLeft: "10px", color: "gray" }}>
+                                    {originalPrice} {currency}
+                                </span>
+                            ) : null}
+                        </li>
+                    );
+                })}
                   </div>
                 ) : (
                   <div className="no-products">
