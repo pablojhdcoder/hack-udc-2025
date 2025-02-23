@@ -1,4 +1,4 @@
-# Starter Template with React Navigation
+# RiquiClothing
 
 This is a minimal starter template for React Native apps using Expo and React Navigation.
 
