@@ -51,8 +51,8 @@ input[type="file"] {
 
 button {
     font-family: "BoldF";
-    margin-top: 30px;
     margin-right: 30px;
+    margin-top: 10px;
     margin-left: 30px;
     padding: 10px 15px;
     border: none;
@@ -71,3 +71,10 @@ button:hover {
 #preview {
     margin-top: 15px;
 }
+
+.no-products {
+    color: red;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+  }

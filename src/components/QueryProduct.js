@@ -11,7 +11,7 @@ const QueryProduct = () => {
         try {
             const token = await getToken();
             const response = await axios.get(
-                `https://cors-anywhere.herokuapp.com/https://api-sandbox.inditex.com/searchpmpa-sandbox/products?brand=zara&query=${query}`,
+                `https://cors-anywhere.herokuapp.com/https://api.inditex.com/searchpmpa/products?brand=zara&query=${query}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -19,7 +19,7 @@ const QueryProduct = () => {
                     },
                 }
             );
-            setProducts(response.data); // Store API response in state
+            setProducts(response.data);
             setError(null);
         } catch (err) {
             console.error("Error fetching products:", err);
